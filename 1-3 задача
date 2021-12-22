@@ -1,0 +1,81 @@
+#include <iostream>
+#include <windows.h>
+#include <string.h>
+using namespace std;
+void tri(char* str) {
+	int N;
+	N = strlen(str);
+	for (int i = 0; i < N; i++) {
+		if (str[i] == ' ') {
+			cout << str[i + 1] << ".";
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		cout << str[i];
+		if (str[i] == ' ') {
+			break;
+		}
+	}
+	cout << endl;
+}
+void dva(char* str) {
+	int N;
+	N = strlen(str);
+	int sum = 0;
+	int count = 0;
+	for (int i = 0; i < N; i++) {
+		char numbers[12] = { '0','1','2','3','4','5','6','7','8','9','n' };
+		for (int j = 0; j < 10; j++) {
+			for (int z = 0; z < 10; z++) {
+				if (str[i] == numbers[j] && str[i + 1] == numbers[z]) {
+					sum *= 10;
+					j *= 10;
+					sum += j;
+					if (j == 0) {
+						j = 11;
+					}
+				}
+			}
+			if (str[i] == numbers[j]) {
+				sum += j;
+				count += sum;
+				sum = 0;
+			}
+		}
+	}
+	cout << count << endl;
+}
+void odin(char* str) {
+	int N;
+	N = strlen(str);
+	int s = 0;
+	for (int i = 0; i < N / 2; i++) {
+		if (str[i] == str[N - 1 - i]) {
+			s++;
+		}
+	}
+	if (s == N / 2) {
+		cout << str << " - палиндром" << endl;
+	}
+	else {
+		cout << str << " - не палиндром" << endl;
+	}
+}
+int main() {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int n;
+	char* str = new char[50];
+	cout << "Введите ФИО: ";
+	cin.get(str, 50);
+	tri(str);
+	cout << "Введите сумму натуральных чисел: ";
+	cin >> str;
+	dva(str);
+	cout << "Введите слово для проверки на палиндром: ";
+	cin >> str;
+	odin(str);
+
+	delete[] str;
+	return 0;
+}
